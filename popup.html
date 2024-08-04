@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Website Time Tracker</title>
+  <style>
+    body {
+      width: 200px;
+      font-family: Arial, sans-serif;
+    }
+    #time {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="time">00:00:00</div>
+  <script>
+    chrome.storage.local.get([location.href], result => {
+      let totalTime = result[location.href] || 0;
+      let hours = Math.floor(totalTime / 3600);
+      let minutes = Math.floor((totalTime % 3600) / 60);
+      let seconds = totalTime % 60;
+      document.getElementById('time').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    });
+  </script>
+</body>
+</html>
